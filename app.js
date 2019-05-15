@@ -1,6 +1,9 @@
 /*jshint node:true */
 
 var express = require('express');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var http = require('http');
 var path = require('path');
 var glob = require('glob');
@@ -21,14 +24,16 @@ var dust_templates = content.dustTemplates();
 
 var app = express();
 
-app.configure(function () {
-    app.set('port', process.env.PORT || 8124);
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(require('less-middleware')({ src: __dirname + '/public' }));
-    app.use(express.static(path.join(__dirname, 'public')));
-});
+app.set('port', process.env.PORT || 8124);
+app.use(morgan('combined'));  // see https://github.com/expressjs/morgan#combined
+
+app.use(bodyParser.urlencoded({extended: false})); // application/x-www-form-urlencoded
+app.use(bodyParser.json()); // application/json
+
+app.use(methodOverride());
+app.use(require('less-middleware')({src: __dirname + '/public'}));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.get('/', function (req, res) {
     content.topLevelHTML({schemata: schemata}, function (err, html) {

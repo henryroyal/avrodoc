@@ -2,14 +2,17 @@
   "name": "avrodoc",
   "description": "Documentation tool for Avro schemas",
   "version": "0.3.0",
-  "author": "Martin Kleppmann http://martinkl.com/",
+  "authr": "Martin Kleppmann http://martinkl.com/",
   "bin": "./bin/avrodoc",
   "scripts": {
     "start": "node app",
     "test": "grunt"
   },
   "dependencies": {
-    "express": "3.0.0rc5",
+    "express": "4.16.4",
+    "morgan": "1.9.1",
+    "body-parser": "1.19.0",
+    "method-override": "3.0.0",
     "dustjs-linkedin": "1.1.1",
     "dustjs-helpers": "1.1.0",
     "less-middleware": "0.1.7",
@@ -20,7 +23,7 @@
     "optimist": "0.3.5"
   },
   "devDependencies": {
-    "grunt": "0.4.1",
+    "grunt": "^0.4.1",
     "grunt-contrib-jshint": "0.5.4",
     "wd": "0.0.32"
   },
